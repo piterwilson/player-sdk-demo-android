@@ -100,16 +100,16 @@ public class PlayerFragment extends Fragment implements KPEventListener {
             mPlayerView = (PlayerViewController) mFragmentView.findViewById(R.id.player);
             mPlayerView.loadPlayerIntoActivity(getActivity());
 
-//            mPlayerView.addKPlayerEventListener("onEnableKeyboardBinding", "someID", new PlayerViewController.EventListener() {
-//                @Override
-//                public void handler(String eventName, String params) {
-//                    Log.d("customplgin", eventName);
-//                }
-//            });
-            KPPlayerConfig config = new KPPlayerConfig("http://kgit.html5video.org/branches/master/mwEmbedFrame.php", "20540612", "243342").setEntryId("1_sf5ovm7u");
+            KPPlayerConfig config = new KPPlayerConfig("http://cdnapi.kaltura.com", "27176231", "1068292")
+                    .setEntryId("1_w1o3w4ie");
+            config.addConfig("controlBarContainer.plugin", "false");
+            config.addConfig("topBarContainer.plugin", "false");
+            config.addConfig("largePlayBtn.plugin", "false");
+            config.addConfig("doubleClick.debugMode", "true");
+            config.addConfig("uiVars", "[{\"key\":\"adsOnReplay\",\"value\": \"true\"}]");
+            String adTagUrl = "http://pubads.g.doubleclick.net/gampad/ads?env=vp&gdfp_req=1&impl=s&output=vast&unviewed_position_start=1&description_url=http%3A%2F%2Fdisneychannel.disney.co.uk&iu=/165891808/disney.co.uk/disneychannel/mobile-app/video/Best%20Friends%20Whenever&sz=1920x480&url=[REFERRER_URL]&correlator=[TIMESTAMP]&ad_rule=1&cmsid=13728&ciu_szs=320x50,300x250&cust_params=appvsn%3D1.0.0%26country%3Duk%26disneycms%3Dtwc-app%26player%3Ddc-app%26property%3Dbfw&vid=1_vp4rvjmj";
+            config.addConfig("doubleClick.adTagUrl", adTagUrl);
             mPlayerView.initWithConfiguration(config);
-
-
             
             // Add swipe rcogniser
             final GestureDetector gestureDetector = new GestureDetector(getActivity(), new CustomeGestureDetector());
@@ -121,7 +121,12 @@ public class PlayerFragment extends Fragment implements KPEventListener {
             });
 
 
-
+            mPlayerView.addKPlayerEventListener("adErrorEvent", "adErrorEvent", new PlayerViewController.EventListener() {
+                @Override
+                public void handler(String eventName, String params) {
+                    Log.d(TAG, "KPlayer event " + eventName+" params "+params  );
+                }
+            });
 
             mPlayerView.addEventListener(new KPEventListener() {
                 @Override

@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+       // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         Button button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
                     isPlayer = true;
                 }
                 FragmentTransaction transaction = getFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_up, R.anim.slide_down);
-//        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
                 transaction.add(R.id.fragment_container, mPlayerFragment);
                 transaction.addToBackStack(mPlayerFragment.getClass().getName());
                 transaction.commit();
@@ -42,9 +42,6 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
             }
         });
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
